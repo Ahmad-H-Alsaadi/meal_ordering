@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ordering/cart/cart_logic.dart';
-import '../database/categories.dart';
-import '../widgets/details_body.dart';
+import 'details_body.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final Category category;
-  const DetailsScreen({super.key, required this.category});
+  final String name, image, description;
+
+  const DetailsScreen({
+    super.key,
+    required this.name,
+    required this.image,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +17,9 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 204, 200, 200),
       appBar: detailsAppBar(context),
       body: DetailsBody(
-        category: category,
-        cartProvider: CartProvider(),
+        description: description,
+        image: image,
+        name: name,
       ),
     );
   }

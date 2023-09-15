@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import '../database/categories.dart';
 
 class CategoryCard extends StatelessWidget {
-  final int itemIndex;
-  final Category category;
+  final String name, image;
   // ignore: prefer_typing_uninitialized_variables
   final press;
 
   const CategoryCard({
     super.key,
-    required this.itemIndex,
-    required this.category,
     required this.press,
+    required this.name,
+    required this.image,
   });
 
   @override
@@ -49,7 +47,7 @@ class CategoryCard extends StatelessWidget {
                 height: 140.0,
                 width: 180.0,
                 child: Image.network(
-                  category.categoryImage,
+                  image,
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -64,17 +62,20 @@ class CategoryCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            category.categoryName,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25),
-                          ),
-                        ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 25),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const Spacer(),
@@ -92,9 +93,9 @@ class CategoryCard extends StatelessWidget {
                               color: const Color.fromARGB(255, 255, 60, 0),
                               borderRadius: BorderRadius.circular(22),
                             ),
-                            child: Text(
-                              "price: \$${category.price}",
-                              style: const TextStyle(
+                            child: const Text(
+                              "price: ",
+                              style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15,
                                   color: Colors.white),
