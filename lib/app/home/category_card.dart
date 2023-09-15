@@ -53,59 +53,12 @@ class CategoryCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 0.0,
-              right: 0.0,
-              child: SizedBox(
-                height: 136.0,
-                width: size.width - 200,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Spacer(),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              name,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 25),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 30,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 60, 0),
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-                            child: const Text(
-                              "price: ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              bottom: 50.0,
+              right: 50.0,
+              child: Text(
+                name,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
               ),
             ),
           ],

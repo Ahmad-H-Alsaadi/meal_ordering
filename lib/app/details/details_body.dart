@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
 
 class DetailsBody extends StatelessWidget {
   final String name, image, description;
@@ -50,9 +51,11 @@ class DetailsBody extends StatelessWidget {
               horizontal: 30,
               vertical: 10,
             ),
-            child: Text(
+            child: ReadMoreText(
               description,
               style: const TextStyle(color: Colors.white, fontSize: 19.0),
+              moreStyle: const TextStyle(color: Colors.blue),
+              lessStyle: const TextStyle(color: Colors.blue),
             ),
           ),
           InkWell(
