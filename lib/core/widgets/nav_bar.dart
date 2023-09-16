@@ -16,7 +16,7 @@ class NavBar extends StatelessWidget {
         children: [
           UserAccountsDrawerHeader(
             accountName: const Text(
-              "user name will appear here",
+              '',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

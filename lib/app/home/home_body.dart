@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../details/details_screen.dart';
-import 'category_card.dart';
-
-String stringResponse = '';
-Map mapResponse = {};
-Map dataResponse = {};
-List listResponse = [];
+import '../../core/controller/list_builder_controller.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -17,25 +9,6 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  Future apicall() async {
-    http.Response response;
-    response = await http.get(
-        Uri.parse("https://www.themealdb.com/api/json/v1/1/categories.php"));
-    if (response.statusCode == 200) {
-      setState(() {
-        stringResponse = response.body;
-        mapResponse = json.decode(stringResponse);
-        listResponse = mapResponse['categories'];
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    apicall();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,26 +29,7 @@ class _HomeBodyState extends State<HomeBody> {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  itemCount: listResponse == [] ? 0 : listResponse.length,
-                  itemBuilder: (context, index) => CategoryCard(
-                    image: listResponse[index]['strCategoryThumb'],
-                    name: listResponse[index]['strCategory'],
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreen(
-                            name: listResponse[index]['strCategory'],
-                            image: listResponse[index]['strCategoryThumb'],
-                            description: listResponse[index]
-                                ['strCategoryDescription'],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+                const ListBuilderController(),
               ],
             ),
           ),

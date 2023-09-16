@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
+import '../../core/controller/cart_controller.dart';
+import 'details_list_view.dart';
 
 class DetailsBody extends StatelessWidget {
   final String name, image, description;
+  final int index;
+  final cartController = Get.put(CartController());
 
-  const DetailsBody({
+  DetailsBody({
     super.key,
     required this.name,
     required this.image,
     required this.description,
+    required this.index,
   });
 
   @override
@@ -58,25 +64,8 @@ class DetailsBody extends StatelessWidget {
               lessStyle: const TextStyle(color: Colors.blue),
             ),
           ),
-          InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 5,
-              ),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 60, 0),
-                borderRadius: BorderRadius.circular(22),
-              ),
-              child: const Text(
-                "Order ",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white),
-              ),
-            ),
+          DetailsListView(
+            name: name,
           ),
         ],
       ),
