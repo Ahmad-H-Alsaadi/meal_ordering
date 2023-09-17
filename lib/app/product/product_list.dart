@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import '../../core/api/api_service_controll.dart';
 import 'meal_card.dart';
 
-class DetailsListView extends StatefulWidget {
-  const DetailsListView({super.key, required this.name});
+class ProductList extends StatefulWidget {
+  const ProductList({super.key, required this.name});
   final String name;
 
   @override
-  State<DetailsListView> createState() => _DetailsListViewState();
+  State<ProductList> createState() => _ProductListState();
 }
 
-class _DetailsListViewState extends State<DetailsListView> {
+class _ProductListState extends State<ProductList> {
   List<Map<String, dynamic>> listResponse = [];
 
   Future<void> fetchData() async {

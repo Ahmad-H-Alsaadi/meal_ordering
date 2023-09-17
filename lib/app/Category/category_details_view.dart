@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import '../../core/widgets/nav_bar.dart';
 import '../cart/cart_page.dart';
+import '../product/product_list.dart';
 import 'category_list.dart';
 
 class CategoryDetails extends StatelessWidget {
@@ -66,7 +67,7 @@ class CategoryDetails extends StatelessWidget {
                   lessStyle: const TextStyle(color: Colors.blue),
                 ),
               ),
-              CategoryList(
+              ProductList(
                 name: name,
               ),
             ],

@@ -50,9 +50,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CategoryList(
-                    name: '',
-                  ),
+                  const CategoryList(),
                 ],
               ),
             ),

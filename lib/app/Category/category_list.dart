@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'category_details_view.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({super.key, required String name});
+  const CategoryList({super.key});
 
   @override
   State<CategoryList> createState() => _CategoryListState();
