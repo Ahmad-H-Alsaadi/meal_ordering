@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_ordering/app/pruduct/meal_details.dart';
 
 class MealCard extends StatelessWidget {
   const MealCard(
@@ -11,7 +12,16 @@ class MealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MealDetails(
+              id: mealIndex,
+            ),
+          ),
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(22.0),

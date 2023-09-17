@@ -5,6 +5,7 @@ import 'meal_details_body.dart';
 
 class MealDetails extends StatelessWidget {
   const MealDetails({super.key, required this.id});
+  // ignore: prefer_typing_uninitialized_variables
   final id;
 
   @override

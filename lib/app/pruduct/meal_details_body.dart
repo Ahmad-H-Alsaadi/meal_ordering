@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
-
 import '../../core/controller/api_service_controll.dart';
 
 class MealDetailsBody extends StatefulWidget {
@@ -12,14 +11,14 @@ class MealDetailsBody extends StatefulWidget {
 }
 
 class _MealDetailsBodyState extends State<MealDetailsBody> {
-  List<Map<String, dynamic>> listResponse = [];
+  Map<String, dynamic> mealDetails = {};
 
   Future<void> fetchData() async {
     try {
-      final mealDetails =
+      final mealDetail =
           await ApiServiceController.fetchProductDetails(widget.id);
       setState(() {
-        listResponse = mealDetails as List<Map<String, dynamic>>;
+        mealDetails = mealDetail;
       });
     } catch (error) {
       // Handle the error
@@ -44,7 +43,7 @@ class _MealDetailsBodyState extends State<MealDetailsBody> {
         children: [
           Center(
             child: Image.network(
-              listResponse[0]['strMealThumb'],
+              mealDetails['strMealThumb'],
               height: size.width,
               width: size.width,
               fit: BoxFit.fitWidth,
@@ -60,7 +59,7 @@ class _MealDetailsBodyState extends State<MealDetailsBody> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  listResponse[0]['strMeal'],
+                  mealDetails['strMeal'],
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 30),
                 ),
@@ -75,7 +74,7 @@ class _MealDetailsBodyState extends State<MealDetailsBody> {
               vertical: 10,
             ),
             child: ReadMoreText(
-              listResponse[0]['strInstructions'],
+              mealDetails['strInstructions'],
               style: const TextStyle(color: Colors.white, fontSize: 19.0),
               moreStyle: const TextStyle(color: Colors.blue),
               lessStyle: const TextStyle(color: Colors.blue),

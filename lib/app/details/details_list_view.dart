@@ -46,7 +46,11 @@ class _DetailsListViewState extends State<DetailsListView> {
             snapshot.error.toString(),
           );
         } else {
-          return Text(listResponse[0]['strMeal']);
+          return MealCard(
+            name: listResponse[0]['strMeal'],
+            image: listResponse[0]['strMealThumb'],
+            mealIndex: listResponse[0]['idMeal'],
+          );
         }
       },
     );
