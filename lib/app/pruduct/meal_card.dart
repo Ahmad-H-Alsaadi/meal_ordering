@@ -10,50 +10,45 @@ class MealCard extends StatelessWidget {
   final int mealIndex;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
-      ),
-      height: 190.0,
-      child: InkWell(
-        onTap: () {},
+    return InkWell(
+      onTap: () {},
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22.0),
+        ),
+        elevation: 5.0,
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(
-              height: 166.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                color: Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                      offset: Offset(0, 15),
-                      blurRadius: 25,
-                      color: Colors.black12),
-                ],
+            ClipRRect(
+              borderRadius: BorderRadius.circular(22.0),
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 300.0,
               ),
             ),
-            Positioned(
-              top: 0.0,
-              left: 0.0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                height: 140.0,
-                width: 180.0,
-                child: Image.network(
-                  image,
-                  fit: BoxFit.fitWidth,
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(22.0),
+                  bottomRight: Radius.circular(22.0),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 50.0,
-              right: 50.0,
               child: Text(
                 name,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

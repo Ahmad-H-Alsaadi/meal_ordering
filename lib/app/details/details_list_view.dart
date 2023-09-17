@@ -1,6 +1,8 @@
 import 'package:meal_ordering/core/controller/api_service_controll.dart';
 import 'package:flutter/material.dart';
 
+import '../pruduct/meal_card.dart';
+
 class DetailsListView extends StatefulWidget {
   const DetailsListView({super.key, required this.name});
   final String name;
@@ -11,7 +13,6 @@ class DetailsListView extends StatefulWidget {
 
 class _DetailsListViewState extends State<DetailsListView> {
   List<Map<String, dynamic>> listResponse = [];
-  List<Map<String, dynamic>> listResponsedetails = [];
 
   Future<void> fetchData() async {
     try {
@@ -35,24 +36,47 @@ class _DetailsListViewState extends State<DetailsListView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          ListView.builder(
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text(
+            snapshot.error.toString(),
+          );
+        } else {
+          return ListView.builder(
             itemCount: listResponse.length,
-            itemBuilder: (context, index) =>
-                Text(listResponse[index]['strMeal']),
-          ),
-        ],
-      ),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final meal = listResponse[index];
+              final image = meal['strCategoryThumb'] as String?;
+              final name = meal['strMealThumb'] as String?;
+              final mealIndex = meal['idMeal'] as String?;
+
+              if (image != null && name != null && mealIndex != null) {
+                return MealCard(
+                  image: image,
+                  name: name,
+                  mealIndex: int.parse(mealIndex),
+                );
+              } else {
+                // Handle the case where one of the values is null
+                return Container(
+                  padding: const EdgeInsets.all(16),
+                  child: const Text(
+                    'Data is missing for this item',
+                    style: TextStyle(
+                      color: Colors.red, // You can customize the style
+                    ),
+                  ),
+                ); // Placeholder or alternative UI
+              }
+            },
+          );
+        }
+      },
     );
   }
 }
-// ListView.builder(
-//       itemCount: listResponse.length,
-//       itemBuilder: (context, index) => MealCard(
-//         image: listResponse[index]['strMealThumb'],
-//         name: listResponse[index]['strMeal'],
-//         mealIndex: int.parse(listResponse[index]['idMeal']),
-//       ),
-//     );

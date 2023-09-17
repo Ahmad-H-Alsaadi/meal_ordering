@@ -34,25 +34,39 @@ class _ListBuilderControllerState extends State<ListBuilderController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: listResponse.length,
-      itemBuilder: (context, index) => CategoryCard(
-        image: listResponse[index]['strCategoryThumb'],
-        name: listResponse[index]['strCategory'],
-        press: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailsScreen(
-                name: listResponse[index]['strCategory'],
-                image: listResponse[index]['strCategoryThumb'],
-                description: listResponse[index]['strCategoryDescription'],
-                index: index,
-              ),
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text(
+            snapshot.error.toString(),
+          );
+        } else {
+          return ListView.builder(
+            itemCount: listResponse.length,
+            itemBuilder: (context, index) => CategoryCard(
+              image: listResponse[index]['strCategoryThumb'],
+              name: listResponse[index]['strCategory'],
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsScreen(
+                      name: listResponse[index]['strCategory'],
+                      image: listResponse[index]['strCategoryThumb'],
+                      description: listResponse[index]
+                          ['strCategoryDescription'],
+                      index: index,
+                    ),
+                  ),
+                );
+              },
             ),
           );
-        },
-      ),
+        }
+      },
     );
   }
 }
