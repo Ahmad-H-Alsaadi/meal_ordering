@@ -1,7 +1,6 @@
-import 'package:meal_ordering/core/controller/api_service_controll.dart';
 import 'package:flutter/material.dart';
-
-import '../pruduct/meal_card.dart';
+import '../../core/api/api_service_controll.dart';
+import 'meal_card.dart';
 
 class DetailsListView extends StatefulWidget {
   const DetailsListView({super.key, required this.name});

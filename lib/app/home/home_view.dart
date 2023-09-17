@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:meal_ordering/app/cart/cart_page.dart';
-import 'package:meal_ordering/app/home/home_body.dart';
 import 'package:meal_ordering/core/widgets/nav_bar.dart';
+import '../Category/category_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -33,7 +32,33 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: false,
       ),
-      body: const HomeBody(),
+      body: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            Expanded(
+              child: Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 70.0),
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 204, 200, 200),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40),
+                      ),
+                    ),
+                  ),
+                  CategoryList(
+                    name: '',
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

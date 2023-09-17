@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../model/category.dart';
+import '../../app/model/category.dart';
 
 class CategoryApi {
   static Future<List<Categoty>> getBooks(String query) async {

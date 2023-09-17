@@ -1,16 +1,17 @@
-import 'package:meal_ordering/core/controller/api_service_controll.dart';
-import '../../app/details/details_screen.dart';
-import '../../app/home/category_card.dart';
+import 'package:meal_ordering/core/api/api_service_controll.dart';
+import 'category_card.dart';
 import 'package:flutter/material.dart';
 
-class ListBuilderController extends StatefulWidget {
-  const ListBuilderController({super.key});
+import 'category_details_view.dart';
+
+class CategoryList extends StatefulWidget {
+  const CategoryList({super.key, required String name});
 
   @override
-  State<ListBuilderController> createState() => _ListBuilderControllerState();
+  State<CategoryList> createState() => _CategoryListState();
 }
 
-class _ListBuilderControllerState extends State<ListBuilderController> {
+class _CategoryListState extends State<CategoryList> {
   List<Map<String, dynamic>> listResponse = [];
 
   Future<void> fetchData() async {
@@ -45,6 +46,7 @@ class _ListBuilderControllerState extends State<ListBuilderController> {
           );
         } else {
           return ListView.builder(
+            shrinkWrap: true,
             itemCount: listResponse.length,
             itemBuilder: (context, index) => CategoryCard(
               image: listResponse[index]['strCategoryThumb'],
@@ -53,7 +55,7 @@ class _ListBuilderControllerState extends State<ListBuilderController> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DetailsScreen(
+                    builder: (context) => CategoryDetails(
                       name: listResponse[index]['strCategory'],
                       image: listResponse[index]['strCategoryThumb'],
                       description: listResponse[index]
