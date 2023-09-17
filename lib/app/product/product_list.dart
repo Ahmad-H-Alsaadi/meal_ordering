@@ -45,10 +45,16 @@ class _ProductListState extends State<ProductList> {
             snapshot.error.toString(),
           );
         } else {
-          return MealCard(
-            name: listResponse[0]['strMeal'],
-            image: listResponse[0]['strMealThumb'],
-            mealIndex: listResponse[0]['idMeal'],
+          final mealCards = listResponse.map((product) {
+            return MealCard(
+              name: product['strMeal'],
+              image: product['strMealThumb'],
+              mealIndex: product['idMeal'],
+            );
+          }).toList();
+
+          return Column(
+            children: mealCards,
           );
         }
       },
