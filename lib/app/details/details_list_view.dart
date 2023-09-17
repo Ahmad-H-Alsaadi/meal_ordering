@@ -46,34 +46,7 @@ class _DetailsListViewState extends State<DetailsListView> {
             snapshot.error.toString(),
           );
         } else {
-          return ListView.builder(
-            itemCount: listResponse.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final meal = listResponse[index];
-              final String image = meal['strCategoryThumb'];
-              final String name = meal['strMealThumb'];
-              final String mealIndex = meal['idMeal'];
-
-              if (image != null && name != null && mealIndex != null) {
-                return MealCard(
-                  image: image,
-                  name: name,
-                  mealIndex: mealIndex,
-                );
-              } else {
-                return Container(
-                  padding: const EdgeInsets.all(16),
-                  child: const Text(
-                    'Data is missing for this item',
-                    style: TextStyle(
-                      color: Colors.red,
-                    ),
-                  ),
-                );
-              }
-            },
-          );
+          return Text(listResponse[0]['strMeal']);
         }
       },
     );
