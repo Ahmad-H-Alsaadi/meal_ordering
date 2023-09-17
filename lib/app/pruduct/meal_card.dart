@@ -7,7 +7,7 @@ class MealCard extends StatelessWidget {
       required this.image,
       required this.mealIndex});
   final String name, image;
-  final int mealIndex;
+  final String mealIndex;
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -1,15 +1,21 @@
-import 'package:get/get.dart';
+class ShoppingCart {
+  final List<Map<String, dynamic>> _items = [];
 
-class CartController extends GetxController {
-  RxList<dynamic> cartItems = [].obs;
+  List<Map<String, dynamic>> get items => _items;
 
-  void addToCart(String item) {
-    cartItems.add(item);
+  void addToCart(Map<String, dynamic> meal) {
+    _items.add(meal);
   }
 
-  void removeFromCart(String item) {
-    cartItems.remove(item);
+  void removeFromCart(Map<String, dynamic> meal) {
+    _items.remove(meal);
   }
 
-  int get itemCount => cartItems.length;
+  double getTotalPrice() {
+    double totalPrice = 0;
+    for (var item in _items) {
+      totalPrice += item['price'];
+    }
+    return totalPrice;
+  }
 }

@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
-import '../../core/controller/cart_controller.dart';
-import 'details_list_view.dart';
 
-class DetailsBody extends StatelessWidget {
-  final String name, image, description;
-  final int index;
-  final ShoppingCart shoppingCart = ShoppingCart();
+import '../../core/controller/api_service_controll.dart';
 
-  DetailsBody({
-    super.key,
-    required this.name,
-    required this.image,
-    required this.description,
-    required this.index,
-  });
+class MealDetailsBody extends StatefulWidget {
+  const MealDetailsBody({super.key, required this.id});
+  final String id;
+
+  @override
+  State<MealDetailsBody> createState() => _MealDetailsBodyState();
+}
+
+class _MealDetailsBodyState extends State<MealDetailsBody> {
+  List<Map<String, dynamic>> listResponse = [];
+
+  Future<void> fetchData() async {
+    try {
+      final mealDetails =
+          await ApiServiceController.fetchProductDetails(widget.id);
+      setState(() {
+        listResponse = mealDetails as List<Map<String, dynamic>>;
+      });
+    } catch (error) {
+      // Handle the error
+      // ignore: avoid_print
+      print('Error: $error');
+    }
+  }
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +44,7 @@ class DetailsBody extends StatelessWidget {
         children: [
           Center(
             child: Image.network(
-              image,
+              listResponse[0]['strMealThumb'],
               height: size.width,
               width: size.width,
               fit: BoxFit.fitWidth,
@@ -42,7 +60,7 @@ class DetailsBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  listResponse[0]['strMeal'],
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 30),
                 ),
@@ -57,14 +75,11 @@ class DetailsBody extends StatelessWidget {
               vertical: 10,
             ),
             child: ReadMoreText(
-              description,
+              listResponse[0]['strInstructions'],
               style: const TextStyle(color: Colors.white, fontSize: 19.0),
               moreStyle: const TextStyle(color: Colors.blue),
               lessStyle: const TextStyle(color: Colors.blue),
             ),
-          ),
-          DetailsListView(
-            name: name,
           ),
         ],
       ),

@@ -51,27 +51,26 @@ class _DetailsListViewState extends State<DetailsListView> {
             shrinkWrap: true,
             itemBuilder: (context, index) {
               final meal = listResponse[index];
-              final image = meal['strCategoryThumb'] as String?;
-              final name = meal['strMealThumb'] as String?;
-              final mealIndex = meal['idMeal'] as String?;
+              final String image = meal['strCategoryThumb'];
+              final String name = meal['strMealThumb'];
+              final String mealIndex = meal['idMeal'];
 
               if (image != null && name != null && mealIndex != null) {
                 return MealCard(
                   image: image,
                   name: name,
-                  mealIndex: int.parse(mealIndex),
+                  mealIndex: mealIndex,
                 );
               } else {
-                // Handle the case where one of the values is null
                 return Container(
                   padding: const EdgeInsets.all(16),
                   child: const Text(
                     'Data is missing for this item',
                     style: TextStyle(
-                      color: Colors.red, // You can customize the style
+                      color: Colors.red,
                     ),
                   ),
-                ); // Placeholder or alternative UI
+                );
               }
             },
           );
