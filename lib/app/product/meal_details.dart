@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import '../../core/api/api_service_controll.dart';
 import '../../core/widgets/nav_bar.dart';
@@ -16,7 +17,6 @@ class MealDetails extends StatefulWidget {
 
 class _MealDetailsState extends State<MealDetails> {
   Map<String, dynamic>? mealDetail; // Make the map nullable
-  final ShoppingCart shoppingCart = ShoppingCart();
   Future<void> fetchData() async {
     try {
       final fetchedMealDetail =
@@ -49,11 +49,13 @@ class _MealDetailsState extends State<MealDetails> {
           children: [
             Center(
               child: mealDetail != null && mealDetail!['strMealThumb'] != null
-                  ? Image.network(
-                      mealDetail!['strMealThumb'],
-                      height: size.width,
-                      width: size.width,
-                      fit: BoxFit.fitWidth,
+                  ? Expanded(
+                      child: Image.network(
+                        mealDetail!['strMealThumb'],
+                        height: size.width,
+                        width: size.width,
+                        fit: BoxFit.fitWidth,
+                      ),
                     )
                   : const SizedBox(), // Handle null value or missing key
             ),
@@ -66,13 +68,15 @@ class _MealDetailsState extends State<MealDetails> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    mealDetail != null && mealDetail!['strMeal'] != null
-                        ? mealDetail!['strMeal']
-                        : 'Meal Name Missing', // Handle null value or missing key
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  Expanded(
+                    child: Text(
+                      mealDetail != null && mealDetail!['strMeal'] != null
+                          ? mealDetail!['strMeal']
+                          : 'Meal Name Missing',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ],
@@ -88,7 +92,7 @@ class _MealDetailsState extends State<MealDetails> {
               child: ReadMoreText(
                 mealDetail != null && mealDetail!['strInstructions'] != null
                     ? mealDetail!['strInstructions']
-                    : 'Instructions Missing', // Handle null value or missing key
+                    : 'Instructions Missing',
                 style: const TextStyle(color: Colors.white, fontSize: 19.0),
                 moreStyle: const TextStyle(color: Colors.blue),
                 lessStyle: const TextStyle(color: Colors.blue),
@@ -98,7 +102,9 @@ class _MealDetailsState extends State<MealDetails> {
               padding: const EdgeInsets.all(30.0),
               child: InkWell(
                 onTap: () {
-                  shoppingCart.addToCart(mealDetail ?? {});
+                  final cartProvider =
+                      Provider.of<CartProvider>(context, listen: false);
+                  cartProvider.addToCart(mealDetail ?? {});
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
