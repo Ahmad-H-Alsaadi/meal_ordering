@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ordering/app/product/meal_details.dart';
+import 'package:meal_ordering/app/meal/meal_details.dart';
 
 class MealCard extends StatelessWidget {
   const MealCard(

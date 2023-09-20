@@ -1,7 +1,6 @@
-import 'package:meal_ordering/core/api/api_service_controll.dart';
+import 'package:meal_ordering/app/api/api_service_controll.dart';
 import 'package:flutter/material.dart';
 import 'category_details_view.dart';
-import 'package:meal_ordering/app/model/category.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key});

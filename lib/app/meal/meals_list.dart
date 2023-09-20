@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import '../../core/api/api_service_controll.dart';
+import '../api/api_service_controll.dart';
 import 'meal_details.dart';
 
-class ProductList extends StatefulWidget {
-  const ProductList({super.key, required this.name});
+class MealsList extends StatefulWidget {
+  const MealsList({super.key, required this.name});
   final String name;
 
   @override
-  State<ProductList> createState() => _ProductListState();
+  State<MealsList> createState() => _MealsListState();
 }
 
-class _ProductListState extends State<ProductList> {
+class _MealsListState extends State<MealsList> {
   List<Map<String, dynamic>> listResponse = [];
 
   Future<void> fetchData() async {
     try {
-      final meal =
-          await ApiServiceController.fetchProductsInCategory(widget.name);
+      final meal = await ApiServiceController.fetchMealsInCategory(widget.name);
       setState(() {
-        listResponse = meal;
+        listResponse = meal.cast<Map<String, dynamic>>();
       });
     } catch (error) {
       // Handle the error

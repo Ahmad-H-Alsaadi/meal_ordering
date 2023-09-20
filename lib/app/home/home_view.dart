@@ -21,14 +21,16 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CartPage(),
+                  builder: (context) => const CartPage(),
                 ),
               );
             },
           ),
         ],
-        title: const Text(
-          'Welcome to our restaurant',
+        title: const Center(
+          child: Text(
+            'Meal Oredering',
+          ),
         ),
         centerTitle: false,
       ),

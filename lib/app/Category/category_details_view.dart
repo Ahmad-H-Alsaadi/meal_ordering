@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import '../../core/widgets/nav_bar.dart';
 import '../cart/cart_page.dart';
-import '../product/product_list.dart';
+import '../product/meals_list.dart';
 
 class CategoryDetails extends StatelessWidget {
   final String name, image, description;
@@ -66,7 +66,7 @@ class CategoryDetails extends StatelessWidget {
                   lessStyle: const TextStyle(color: Colors.blue),
                 ),
               ),
-              ProductList(
+              MealsList(
                 name: name,
               ),
             ],
@@ -95,7 +95,7 @@ AppBar detailsAppBar(BuildContext context) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CartPage(),
+              builder: (context) => const CartPage(),
             ),
           );
         },

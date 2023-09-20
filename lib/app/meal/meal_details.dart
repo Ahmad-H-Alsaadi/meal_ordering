@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
-import '../../core/api/api_service_controll.dart';
+import '../api/api_service_controll.dart';
 import '../../core/widgets/nav_bar.dart';
 import '../Category/category_details_view.dart';
 import '../cart/cart_controller.dart';
@@ -20,7 +20,7 @@ class _MealDetailsState extends State<MealDetails> {
   Future<void> fetchData() async {
     try {
       final fetchedMealDetail =
-          await ApiServiceController.fetchProductDetails(widget.id);
+          await ApiServiceController.fetchMealDetails(widget.id);
       setState(() {
         mealDetail = fetchedMealDetail;
       });

@@ -19,7 +19,7 @@ class ApiServiceController {
     }
   }
 
-  static Future<List<Map<String, dynamic>>> fetchProductsInCategory(
+  static Future<List<Map<String, dynamic>>> fetchMealsInCategory(
       String categoryName) async {
     final response = await http.get(Uri.parse(
         "https://www.themealdb.com/api/json/v1/1/filter.php?c=$categoryName"));
@@ -35,7 +35,7 @@ class ApiServiceController {
     }
   }
 
-  static Future<Map<String, dynamic>> fetchProductDetails(String mealId) async {
+  static Future<Map<String, dynamic>> fetchMealDetails(String mealId) async {
     final response = await http.get(Uri.parse(
         "https://www.themealdb.com/api/json/v1/1/lookup.php?i=$mealId"));
 

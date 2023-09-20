@@ -1,11 +1,11 @@
-class MealDetails {
+class MealDetailsModel {
   final int mealDetailsId;
   final String mealDetailsName;
   final String categoryName;
   final String mealDetailsImage;
   final String mealDetailsDescription;
   final String mealDetailsVideo;
-  const MealDetails({
+  const MealDetailsModel({
     required this.mealDetailsId,
     required this.mealDetailsName,
     required this.categoryName,
@@ -14,7 +14,8 @@ class MealDetails {
     required this.mealDetailsVideo,
   });
 
-  factory MealDetails.fromJson(Map<String, dynamic> json) => MealDetails(
+  factory MealDetailsModel.fromJson(Map<String, dynamic> json) =>
+      MealDetailsModel(
         mealDetailsId: json['idMeal'],
         mealDetailsName: json['strMeal'],
         categoryName: json['strCategory'],
