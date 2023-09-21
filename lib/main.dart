@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'app/Auth/auth_page.dart';
+import 'app/Auth/auth_view.dart';
 import 'app/cart/cart_controller.dart';
 import 'firebase_options.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthPage(),
+      home: AuthView(),
     );
   }
 }

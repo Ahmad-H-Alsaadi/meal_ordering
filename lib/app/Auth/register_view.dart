@@ -5,28 +5,34 @@ import '../../core/widgets/app_text_field.dart';
 import '../../core/widgets/error_massage.dart';
 
 // ignore: must_be_immutable
-class LoginPage extends StatefulWidget {
+class RegisterView extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const RegisterView({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterViewState extends State<RegisterView> {
+  final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   String errorEmail = '';
-
   String errorPassword = '';
+  String errorConfirmPassword = '';
 
-  void signUserIn() async {
+  void signUserUp() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
+      if (passwordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        errorConfirmPassword = 'Password don\'t match!';
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() {
@@ -55,17 +61,25 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 70),
                 const Icon(
                   Icons.restaurant,
-                  size: 100,
+                  size: 50,
                   color: Color.fromARGB(255, 255, 60, 0),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
                 const Text(
-                  "   Welcome to yumealz 🤗",
+                  "   Lets create an account for you 🔥",
                   style: TextStyle(
                     fontSize: 16.0,
                   ),
                 ),
                 const SizedBox(height: 50),
+                AppTextField(
+                  controller: userNameController,
+                  hintText: 'User name',
+                  obscureText: false,
+                  icon: const Icon(Icons.email_outlined),
+                ),
+                ErrorMassage(errorText: errorConfirmPassword),
+                const SizedBox(height: 10),
                 AppTextField(
                   controller: emailController,
                   hintText: 'Email',
@@ -81,40 +95,35 @@ class _LoginPageState extends State<LoginPage> {
                   icon: const Icon(Icons.lock_outline),
                 ),
                 ErrorMassage(errorText: errorPassword),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Forgot password?",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                        ),
-                      ),
-                    ],
-                  ),
+                const SizedBox(height: 10),
+                AppTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
+                  icon: const Icon(Icons.lock_outline),
                 ),
+                ErrorMassage(errorText: errorConfirmPassword),
                 const SizedBox(height: 20),
                 AppButton(
-                  onTap: signUserIn,
-                  sign: "Sign In",
+                  onTap: signUserUp,
+                  sign: "Sign Up",
                 ),
                 const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Not a member?"),
+                    const Text("Already have an account?"),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        "Regester Now",
+                        "Login Now",
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ],
