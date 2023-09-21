@@ -11,13 +11,10 @@ class CategoryModel {
     required this.categoryDescription,
   });
 
-  factory CategoryModel.fromJson(dynamic json) => CategoryModel(
-        categoryId: json['idCategory'],
+  factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
+        categoryId: int.parse(json['idCategory']),
         categoryName: json['strCategory'],
         categoryImage: json['strCategoryThumb'],
         categoryDescription: json['strCategoryDescription'],
       );
-
-  static List<CategoryModel> categoryFromSnapshot(List snapshot) =>
-      snapshot.map((data) => CategoryModel.fromJson(data)).toList();
 }

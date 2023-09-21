@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class CartProvider with ChangeNotifier {
+class CartController with ChangeNotifier {
   final List<Map<String, dynamic>> _items = [];
 
   List<Map<String, dynamic>> get items => _items;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'cart_controller.dart';
+import '../cart/cart_controller.dart';
 
-class CartPage extends StatelessWidget {
-  const CartPage({super.key});
+class CartView extends StatelessWidget {
+  const CartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<CartProvider>(context);
+    final cartProvider = Provider.of<CartController>(context);
     final cartItems = cartProvider.items;
 
     return Scaffold(
@@ -19,8 +19,8 @@ class CartPage extends StatelessWidget {
         itemCount: cartItems.length,
         itemBuilder: (context, index) {
           final cartItem = cartItems[index];
-          final itemImage = cartItem['strMealThumb'] as String?;
-          final itemName = cartItem['strMeal'] as String?;
+          final itemImage = cartItem['mealDetailsImage'] as String?;
+          final itemName = cartItem['mealDetailsName'] as String?;
 
           return Padding(
             padding:

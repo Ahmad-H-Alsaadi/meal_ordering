@@ -12,7 +12,7 @@ void main() async {
   );
   runApp(
     ChangeNotifierProvider(
-      create: (context) => CartProvider(),
+      create: (context) => CartController(),
       child: const MyApp(),
     ),
   );

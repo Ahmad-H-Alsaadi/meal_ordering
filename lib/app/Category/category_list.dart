@@ -1,41 +1,30 @@
-import 'package:meal_ordering/app/api/api_service_controll.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_ordering/app/model/category_model.dart';
 import 'category_details_view.dart';
+import 'categoty_list_controller.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({super.key});
+  const CategoryList({super.key}); // Fixed super.key to Key? key
 
   @override
   State<CategoryList> createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
-  List<Map<String, dynamic>> listResponse = [];
-
-  Future<void> fetchData() async {
-    try {
-      final categories = await ApiServiceController.fetchMealCategories();
-      setState(() {
-        listResponse = categories;
-      });
-    } catch (error) {
-      // Handle the error
-      // ignore: avoid_print
-      print('Error: $error');
-    }
-  }
+  late final CategoryListController controller;
 
   @override
   void initState() {
-    fetchData();
+    controller = CategoryListController();
     super.initState();
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
+    return FutureBuilder<List<CategoryModel>>(
+      future: controller.getCategory(),
       builder: (context, snapshot) {
+        // Changed the parameter name to 'snapshot'
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         }
@@ -43,22 +32,26 @@ class _CategoryListState extends State<CategoryList> {
           return Text(
             snapshot.error.toString(),
           );
-        } else {
+        } else if (snapshot.hasData) {
+          // Added this condition to check if data is available
+          List<CategoryModel> categoryData = snapshot.data!; // Extract data
           return ListView(
             shrinkWrap: true,
-            children: listResponse.map((categoryData) {
+            children: categoryData.map((categoryData) {
+              // Corrected controller to categoryData
               return CategoryCard(
-                image: categoryData['strCategoryThumb'],
-                name: categoryData['strCategory'],
+                image: categoryData.categoryImage,
+                name: categoryData.categoryName,
                 press: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => CategoryDetails(
-                        name: categoryData['strCategory'],
-                        image: categoryData['strCategoryThumb'],
-                        description: categoryData['strCategoryDescription'],
-                        index: listResponse.indexOf(categoryData),
+                        name: categoryData.categoryName,
+                        image: categoryData.categoryImage,
+                        description: categoryData.categoryDescription,
+                        index: categoryData
+                            .categoryId, // Use categoryId instead of listResponse.indexOf(categoryData)
                       ),
                     ),
                   );
@@ -66,6 +59,9 @@ class _CategoryListState extends State<CategoryList> {
               );
             }).toList(),
           );
+        } else {
+          return const Text(
+              "No data available."); // Handle the case when no data is available
         }
       },
     );

@@ -1,11 +1,12 @@
 class MealDetailsModel {
-  final int mealDetailsId;
+  final String mealDetailsId;
   final String mealDetailsName;
   final String categoryName;
   final String mealDetailsImage;
   final String mealDetailsDescription;
   final String mealDetailsVideo;
-  const MealDetailsModel({
+
+  MealDetailsModel({
     required this.mealDetailsId,
     required this.mealDetailsName,
     required this.categoryName,

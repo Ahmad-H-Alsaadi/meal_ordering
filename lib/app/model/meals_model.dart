@@ -1,5 +1,5 @@
 class MealsModel {
-  final int mealId;
+  final String mealId;
   final String mealName;
   final String mealImage;
   const MealsModel({
@@ -9,8 +9,8 @@ class MealsModel {
   });
 
   factory MealsModel.fromJson(Map<String, dynamic> json) => MealsModel(
-        mealId: json['idCategory'],
-        mealName: json['strCategory'],
-        mealImage: json['strCategoryThumb'],
+        mealId: json['idMeal'],
+        mealName: json['strMeal'],
+        mealImage: json['strMealThumb'],
       );
 }

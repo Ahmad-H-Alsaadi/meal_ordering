@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import '../../core/widgets/nav_bar.dart';
-import '../cart/cart_page.dart';
-import '../product/meals_list.dart';
+import '../cart/cart_view.dart';
+import '../meal/meals_list.dart';
 
 class CategoryDetails extends StatelessWidget {
   final String name, image, description;
@@ -95,7 +95,7 @@ AppBar detailsAppBar(BuildContext context) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CartPage(),
+              builder: (context) => const CartView(),
             ),
           );
         },

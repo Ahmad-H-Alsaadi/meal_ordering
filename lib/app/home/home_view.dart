@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ordering/app/cart/cart_page.dart';
+import 'package:meal_ordering/app/cart/cart_view.dart';
 import 'package:meal_ordering/core/widgets/nav_bar.dart';
 import '../Category/category_list.dart';
 
@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CartPage(),
+                  builder: (context) => const CartView(),
                 ),
               );
             },

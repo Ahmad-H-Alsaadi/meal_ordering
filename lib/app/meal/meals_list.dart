@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../api/api_service_controll.dart';
+import 'package:meal_ordering/app/meal/meals_list_controller.dart';
+import 'package:meal_ordering/app/model/meals_model.dart';
 import 'meal_details.dart';
 
 class MealsList extends StatefulWidget {
@@ -11,30 +12,18 @@ class MealsList extends StatefulWidget {
 }
 
 class _MealsListState extends State<MealsList> {
-  List<Map<String, dynamic>> listResponse = [];
-
-  Future<void> fetchData() async {
-    try {
-      final meal = await ApiServiceController.fetchMealsInCategory(widget.name);
-      setState(() {
-        listResponse = meal.cast<Map<String, dynamic>>();
-      });
-    } catch (error) {
-      // Handle the error
-      // ignore: avoid_print
-      print('Error: $error');
-    }
-  }
+  late final MealsListController controller;
 
   @override
   void initState() {
-    fetchData();
+    controller = MealsListController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Map<String, dynamic>>>(
+    return FutureBuilder<List<MealsModel>>(
+      future: controller.getMeals(widget.name),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -43,18 +32,22 @@ class _MealsListState extends State<MealsList> {
           return Text(
             snapshot.error.toString(),
           );
-        } else {
-          final mealCards = listResponse.map((product) {
-            return MealCard(
-              name: product['strMeal'],
-              image: product['strMealThumb'],
-              mealIndex: product['idMeal'],
-            );
-          }).toList();
-
-          return Column(
-            children: mealCards,
+        } else if (snapshot.hasData) {
+          List<MealsModel> mealsData = snapshot.data!;
+          return ListView(
+            shrinkWrap: true,
+            children: mealsData.map(
+              (mealsData) {
+                // Corrected controller to categoryData
+                return MealCard(
+                    name: mealsData.mealName,
+                    image: mealsData.mealImage,
+                    mealIndex: mealsData.mealId);
+              },
+            ).toList(),
           );
+        } else {
+          return const Text("No data available.");
         }
       },
     );
