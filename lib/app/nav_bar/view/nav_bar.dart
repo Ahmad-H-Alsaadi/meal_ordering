@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_ordering/app/nav_bar/view/contact_view.dart';
 import 'package:meal_ordering/app/nav_bar/view/history_view.dart';
+import 'package:meal_ordering/app/nav_bar/view/user_view.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -46,7 +47,11 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.manage_accounts_outlined),
             title: const Text("Manage Account"),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const UserView(),
+              ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),

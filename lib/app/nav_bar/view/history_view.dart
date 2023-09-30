@@ -65,6 +65,7 @@ class OrderDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 60, 0),
         title: Text('Order #${order.orderNumber} Details'),
       ),
       body: ListView.builder(
