@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ordering/app/meal/meals_list_controller.dart';
+import 'package:meal_ordering/app/meal/meals_controller.dart';
 import 'package:meal_ordering/app/model/meals_model.dart';
+
 import 'meal_details.dart';
 
 class MealsList extends StatefulWidget {
@@ -34,17 +35,20 @@ class _MealsListState extends State<MealsList> {
           );
         } else if (snapshot.hasData) {
           List<MealsModel> mealsData = snapshot.data!;
-          return ListView(
-            shrinkWrap: true,
-            children: mealsData.map(
-              (mealsData) {
-                // Corrected controller to categoryData
-                return MealCard(
-                    name: mealsData.mealName,
-                    image: mealsData.mealImage,
-                    mealIndex: mealsData.mealId);
-              },
-            ).toList(),
+          return SizedBox(
+            height: 400,
+            child: ListView(
+              shrinkWrap: false,
+              children: mealsData.map(
+                (mealsData) {
+                  // Corrected controller to categoryData
+                  return MealCard(
+                      name: mealsData.mealName,
+                      image: mealsData.mealImage,
+                      mealIndex: mealsData.mealId);
+                },
+              ).toList(),
+            ),
           );
         } else {
           return const Text("No data available.");
@@ -102,7 +106,10 @@ class MealCard extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.7),
+                  ],
                 ),
               ),
               child: Text(

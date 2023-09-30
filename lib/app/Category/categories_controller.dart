@@ -1,7 +1,7 @@
 import '../api/api_service_controll.dart';
 import '../model/category_model.dart';
 
-class CategoryListController {
+class CategoriesController {
   Future<List<CategoryModel>> getCategory() async {
     try {
       final categoriesData = await ApiServiceController.fetchMealCategories();

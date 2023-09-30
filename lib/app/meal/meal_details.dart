@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
-import '../../core/widgets/nav_bar.dart';
-import '../Category/category_details_view.dart';
+import '../nav_bar/view/nav_bar.dart';
+import '../category/category_details_view.dart';
 import '../cart/cart_controller.dart';
 import '../model/meal_details_model.dart';
-import 'meal_details_controller.dart';
+import 'meals_controller.dart';
 
 class MealDetails extends StatefulWidget {
   const MealDetails({super.key, required this.id});

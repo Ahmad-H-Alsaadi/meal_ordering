@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meal_ordering/app/nav_bar/view/history_view.dart';
 import 'package:provider/provider.dart';
+
 import '../cart/cart_controller.dart';
+// import '../nav_bar/history_view.dart';
 
 class CartView extends StatelessWidget {
   const CartView({Key? key}) : super(key: key);
@@ -71,6 +74,25 @@ class CartView extends StatelessWidget {
             ),
           );
         },
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () async {
+            final cartProvider =
+                Provider.of<CartController>(context, listen: false);
+
+            await cartProvider.saveCartHistory();
+
+            cartProvider.clearCart();
+
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const HistoryView(),
+            ));
+          },
+          child: const Text('Complete Order'),
+        ),
       ),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_ordering/app/model/category_model.dart';
 import 'category_details_view.dart';
-import 'categoty_list_controller.dart';
+import 'categories_controller.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key}); // Fixed super.key to Key? key
@@ -11,11 +11,11 @@ class CategoryList extends StatefulWidget {
 }
 
 class _CategoryListState extends State<CategoryList> {
-  late final CategoryListController controller;
+  late final CategoriesController controller;
 
   @override
   void initState() {
-    controller = CategoryListController();
+    controller = CategoriesController();
     super.initState();
   }
 

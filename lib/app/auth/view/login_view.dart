@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../core/widgets/app_button.dart';
-import '../../core/widgets/app_text_field.dart';
-import '../../core/widgets/error_massage.dart';
+import 'package:meal_ordering/app/auth/controller/login_controller.dart';
+
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/app_text_field.dart';
+import '../../../core/widgets/error_massage.dart';
 
 // ignore: must_be_immutable
 class LoginView extends StatefulWidget {
@@ -14,32 +15,12 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final LoginController _loginController = LoginController();
 
-  String errorEmail = '';
-
-  String errorPassword = '';
-
-  void signUserIn() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        setState(() {
-          errorEmail = 'Incorrect email';
-          errorPassword = '';
-        });
-      } else if (e.code == 'wrong-password') {
-        setState(() {
-          errorPassword = 'Incorrect password';
-          errorEmail = '';
-        });
-      }
-    }
+  @override
+  void dispose() {
+    _loginController.dispose();
+    super.dispose();
   }
 
   @override
@@ -67,20 +48,20 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: 50),
                 AppTextField(
-                  controller: emailController,
+                  controller: _loginController.emailController,
                   hintText: 'Email',
                   obscureText: false,
                   icon: const Icon(Icons.email_outlined),
                 ),
-                ErrorMassage(errorText: errorEmail),
+                ErrorMassage(errorText: _loginController.errorEmail),
                 const SizedBox(height: 10),
                 AppTextField(
-                  controller: passwordController,
+                  controller: _loginController.passwordController,
                   hintText: 'Password',
                   obscureText: true,
                   icon: const Icon(Icons.lock_outline),
                 ),
-                ErrorMassage(errorText: errorPassword),
+                ErrorMassage(errorText: _loginController.errorPassword),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -96,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: 20),
                 AppButton(
-                  onTap: signUserIn,
+                  onTap: _loginController.signInUser,
                   sign: "Sign In",
                 ),
                 const SizedBox(height: 50),

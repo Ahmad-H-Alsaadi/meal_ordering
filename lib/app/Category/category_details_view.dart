@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meal_ordering/app/nav_bar/view/nav_bar.dart';
 import 'package:readmore/readmore.dart';
-import '../../core/widgets/nav_bar.dart';
+
 import '../cart/cart_view.dart';
 import '../meal/meals_list.dart';
 
@@ -83,7 +84,7 @@ AppBar detailsAppBar(BuildContext context) {
       IconButton(
         padding: const EdgeInsets.only(right: 20),
         icon: const Icon(
-          Icons.home,
+          Icons.arrow_back_ios,
         ),
         onPressed: () {
           Navigator.pop(context);
@@ -102,7 +103,7 @@ AppBar detailsAppBar(BuildContext context) {
       ),
     ],
     title: const Text(
-      'Welcome to our restaurant',
+      'Meal Oredering',
     ),
     centerTitle: false,
   );

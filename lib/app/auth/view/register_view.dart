@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../core/widgets/app_button.dart';
-import '../../core/widgets/app_text_field.dart';
-import '../../core/widgets/error_massage.dart';
+import 'package:meal_ordering/app/auth/controller/register_controller.dart';
+
+import '../../../core/widgets/app_button.dart';
+import '../../../core/widgets/app_text_field.dart';
+import '../../../core/widgets/error_massage.dart';
 
 // ignore: must_be_immutable
 class RegisterView extends StatefulWidget {
@@ -14,38 +15,12 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final userNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final RegisterController _registerController = RegisterController();
 
-  String errorEmail = '';
-  String errorPassword = '';
-  String errorConfirmPassword = '';
-
-  void signUserUp() async {
-    try {
-      if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else {
-        errorConfirmPassword = 'Password don\'t match!';
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        setState(() {
-          errorEmail = 'Incorrect email';
-          errorPassword = '';
-        });
-      } else if (e.code == 'wrong-password') {
-        setState(() {
-          errorPassword = 'Incorrect password';
-          errorEmail = '';
-        });
-      }
-    }
+  @override
+  void dispose() {
+    _registerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,39 +48,40 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 const SizedBox(height: 50),
                 AppTextField(
-                  controller: userNameController,
+                  controller: _registerController.userNameController,
                   hintText: 'User name',
                   obscureText: false,
                   icon: const Icon(Icons.email_outlined),
                 ),
-                ErrorMassage(errorText: errorConfirmPassword),
+                const ErrorMassage(errorText: ""),
                 const SizedBox(height: 10),
                 AppTextField(
-                  controller: emailController,
+                  controller: _registerController.emailController,
                   hintText: 'Email',
                   obscureText: false,
                   icon: const Icon(Icons.email_outlined),
                 ),
-                ErrorMassage(errorText: errorEmail),
+                ErrorMassage(errorText: _registerController.errorEmail),
                 const SizedBox(height: 10),
                 AppTextField(
-                  controller: passwordController,
+                  controller: _registerController.passwordController,
                   hintText: 'Password',
                   obscureText: true,
                   icon: const Icon(Icons.lock_outline),
                 ),
-                ErrorMassage(errorText: errorPassword),
+                ErrorMassage(errorText: _registerController.errorPassword),
                 const SizedBox(height: 10),
                 AppTextField(
-                  controller: confirmPasswordController,
+                  controller: _registerController.confirmPasswordController,
                   hintText: 'Confirm Password',
                   obscureText: true,
                   icon: const Icon(Icons.lock_outline),
                 ),
-                ErrorMassage(errorText: errorConfirmPassword),
+                ErrorMassage(
+                    errorText: _registerController.errorConfirmPassword),
                 const SizedBox(height: 20),
                 AppButton(
-                  onTap: signUserUp,
+                  onTap: _registerController.signUpUser,
                   sign: "Sign Up",
                 ),
                 const SizedBox(height: 50),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_ordering/app/cart/cart_view.dart';
-import 'package:meal_ordering/core/widgets/nav_bar.dart';
-import '../Category/category_list.dart';
+import 'package:meal_ordering/app/nav_bar/view/nav_bar.dart';
+import '../category/category_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

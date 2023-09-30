@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_ordering/app/nav_bar/view/contact_view.dart';
+import 'package:meal_ordering/app/nav_bar/view/history_view.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -54,13 +56,21 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text("My order history"),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const HistoryView(),
+              ));
+            },
           ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.textsms_outlined),
             title: const Text("Contact Us"),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ContactView(),
+              ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app_rounded),

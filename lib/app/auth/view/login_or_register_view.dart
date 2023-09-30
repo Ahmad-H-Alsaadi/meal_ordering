@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ordering/app/Auth/register_view.dart';
+import 'package:meal_ordering/app/auth/view/register_view.dart';
 import 'login_view.dart';
 
 class LoginOrRegisterView extends StatefulWidget {
